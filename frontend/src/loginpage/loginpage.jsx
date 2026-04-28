@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import axios from 'axios'
+import { useNavigate } from "react-router-dom";
 
 
-import './LoginPage.css';
+import './AuthPage.css';
 
 const LoginPage = ({ switchToSignup }) => {
   const [formData, setFormData] = useState({ identifier:'', password:'' });
   const [showPassword, setShowPassword] = useState(false);
-
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -20,6 +21,7 @@ const LoginPage = ({ switchToSignup }) => {
       const response = await axios.post('http://localhost:5001/api/auth/login',formData);
       localStorage.setItem("token", response.data.token);
       alert(' login successfully')
+      navigate('/reddit')
      
     }
     catch(error){
@@ -33,9 +35,9 @@ const LoginPage = ({ switchToSignup }) => {
   const isFormValid = formData.identifier.trim() !== '' && formData.password.trim() !== '';
 
   return (
+    <div className='box-modal'>
     <div className="login-modal">
-      <div className="modal-content">
-        <h2>Log In</h2>
+        <h2 style={{marginBottom :'20px'}}>Log In</h2>
         <form onSubmit={handleSubmit}>
               {/* Email or Username Input */}
           <div className="input-wrapper">
@@ -75,12 +77,15 @@ const LoginPage = ({ switchToSignup }) => {
                <span onClick={switchToSignup}> Sign Up</span>
           </p>
 
-          <button type="submit" className="login-btn" disabled={!isFormValid}>
+          <button type="submit" className="auth-btn" disabled={!isFormValid}>
             Log In
           </button>
         </form>
       </div>
-    </div>
+      </div>
+   
+  
+    
   );
 };
 

@@ -1,16 +1,19 @@
-import logo from './logo.svg';
 import './App.css';
-import AuthPage from './loginpage/Authpage'
+import AuthPage from './loginpage/Authpage';
 import FeedPage from './Feedpage/Feedpage';
 
-
-
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
   return (
-    <div className="App">
-      <FeedPage/>
-    </div>
+    <BrowserRouter>
+      <div className="App">
+        <Routes>
+          <Route path="/" element={<AuthPage />} />
+          <Route path="/reddit" element={<FeedPage />} />
+        </Routes>
+      </div>
+    </BrowserRouter>
   );
 }
 

@@ -1,14 +1,16 @@
 import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import axios from "axios";
-import "./LoginPage.css"; // reuse same CSS
+import "./AuthPage.css"
 import LoginPage from "./loginpage";
+import { useNavigate } from "react-router-dom";
 
 const Signup = ({ switchToLogin }) => {
   const [email, setemail] = useState("");
   const [username, setusername] = useState("");
   const [password, setpassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate()
   
 
   const [step, setStep] = useState(1); 
@@ -31,8 +33,10 @@ const Signup = ({ switchToLogin }) => {
         email,
         password,
       });
+      alert('signup successfully')
+      navigate('/reddit')
 
-      alert("Signup successful");
+      
       
     } catch (error) {
       console.log(error.message);
@@ -43,9 +47,10 @@ const Signup = ({ switchToLogin }) => {
   
 
   return (
+    <div className="box-modal">
     <div className="login-modal">
       <div className="modal-content">
-        <h2>Sign Up</h2>
+        <h2 style={{marginBottom : '20px'}}>Sign Up</h2>
 
         <form onSubmit={handleSubmit}>
           {/* STEP 1: Email */}
@@ -67,7 +72,7 @@ const Signup = ({ switchToLogin }) => {
 
               <button
                 type="button"
-                className="login-btn"
+                className="auth-btn"
                 disabled={!isEmailValid}
                 onClick={handleContinue}
               >
@@ -115,7 +120,7 @@ const Signup = ({ switchToLogin }) => {
 
               <button
                 type="submit"
-                className="login-btn"
+                className="auth-btn"
                 disabled={!isFormValid}
               >
                 Sign Up
@@ -128,6 +133,7 @@ const Signup = ({ switchToLogin }) => {
           </p>
         </form>
       </div>
+    </div>
     </div>
   );
 };
