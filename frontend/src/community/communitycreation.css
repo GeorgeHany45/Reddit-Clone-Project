@@ -1,0 +1,373 @@
+/* ── OVERLAY ──────────────────────────────────────────────────────────────── */
+.community-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+/* ── BOX ──────────────────────────────────────────────────────────────────── */
+.community-box {
+    background: white;
+    border-radius: 16px;
+    width: 720px;
+    max-width: 95vw;
+    padding: 28px 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+}
+
+/* ── HEADER ───────────────────────────────────────────────────────────────── */
+.community-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.community-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1c1c1c;
+    margin-bottom: 6px;
+}
+
+.community-subtitle {
+    font-size: 14px;
+    color: #878a8c;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 18px;
+    color: #878a8c;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 50%;
+    line-height: 1;
+}
+
+.close-btn:hover {
+    background: #f6f7f8;
+    color: #1c1c1c;
+}
+
+/* ── BODY ─────────────────────────────────────────────────────────────────── */
+.community-body {
+    display: flex;
+    gap: 20px;
+}
+
+.community-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* ── INPUT WRAPPER ────────────────────────────────────────────────────────── */
+.communityinput-wrapper {
+    position: relative;
+    margin-bottom: 4px;
+}
+
+/* ── NAME INPUT ───────────────────────────────────────────────────────────── */
+.communityinput-wrapper input {
+    width: 100%;
+    height: 52px;
+    padding: 20px 16px 6px 16px;
+    border: 0px solid #ccc;
+    background-color: #e5ebee;
+    border-radius: 20px;
+    box-sizing: border-box;
+    outline: none;
+    font-size: 14px;
+    font-family: inherit;
+    color: #1c1c1c;
+    transition: border 0.2s;
+}
+
+.communityinput-wrapper input:focus {
+    border: 1px solid #0079d3;
+}
+
+.communityinput-wrapper input::placeholder {
+    color: transparent;
+}
+
+/* ── DESCRIPTION TEXTAREA ─────────────────────────────────────────────────── */
+.communityinput-wrapper textarea {
+    width: 100%;
+    height: 160px;
+    padding: 28px 16px 16px 16px;
+    border: 0px solid #ccc;
+    background-color: #e5ebee;
+    border-radius: 20px;
+    box-sizing: border-box;
+    outline: none;
+    font-size: 14px;
+    font-family: inherit;
+    color: #1c1c1c;
+    resize: none;
+    transition: border 0.2s;
+}
+
+.communityinput-wrapper textarea:focus {
+    border: 1px solid #0079d3;
+}
+
+.communityinput-wrapper textarea::placeholder {
+    color: transparent;
+}
+
+/* ── FLOATING LABEL — name ────────────────────────────────────────────────── */
+.communityinput-wrapper label {
+    position: absolute;
+    left: 16px;
+    top: 12px;
+    transform: none;
+    font-size: 16px;
+    font-family: inherit;
+    color: #878a8c;
+    pointer-events: none;
+    transition: all 0.2s ease;
+}
+
+.communityinput-wrapper input:focus ~ label,
+.communityinput-wrapper input:not(:placeholder-shown) ~ label {
+    top: 8px;
+    transform: none;
+    font-size: 10px;
+    color: #878a8c;
+}
+
+/* ── FLOATING LABEL — description ────────────────────────────────────────── */
+.description-label {
+    top: 8px;
+    left: 16px;
+    transform: none;
+    font-size: 16px;
+}
+
+.communityinput-wrapper textarea:focus ~ .description-label,
+.communityinput-wrapper textarea:not(:placeholder-shown) ~ .description-label {
+    top: 8px;
+    transform: none;
+    font-size: 10px;
+    color: #878a8c;
+}
+
+/* ── r/ PREFIX ────────────────────────────────────────────────────────────── */
+.r-prefix {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    padding-top: 10px;
+    font-size: 14px;
+    font-weight: 400;
+    color: #878a8c;
+    pointer-events: none;
+}
+
+.name-input:not(:placeholder-shown) {
+    padding-left: 30px;
+}
+
+/* ── ERROR STATES ─────────────────────────────────────────────────────────── */
+.input-error {
+    border: 1px solid #ff4500;
+}
+
+.field-error {
+    color: #ff4500;
+    font-size: 12px;
+    margin-top: 4px;
+    padding-left: 4px;
+}
+
+.error-message {
+    color: #ff4500;
+    font-size: 13px;
+    text-align: center;
+}
+
+.star { color: darkred; }
+
+/* ── TOPICS GRID — no scroll, wraps naturally ─────────────────────────────── */
+.topics-grid {
+    display: grid;
+    grid-template-areas: 'div div div div div';
+    gap: 10px;
+    padding: 4px 2px;
+}
+
+/* ── TOPIC BUTTON ─────────────────────────────────────────────────────────── */
+.topic-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 7px;
+    border: 1px solid #edeff1;
+    border-radius: 20px;
+    background: #ffffff;
+    font-size: 10px;
+    font-weight: 600;
+    color: #1c1c1c;
+    cursor: pointer;
+    transition: all 0.15s;
+    font-family: inherit;
+    width: 120px;
+}
+
+.topic-btn:hover {
+    border-color: #0079d3;
+    color: #0079d3;
+    background: #f0f7ff;
+}
+
+.topic-selected {
+    background: #173f5f;
+    border-color: #173f5f;
+    color: #ffffff;
+    font-weight: 700;
+}
+
+.topic-selected:hover {
+    background: #173f5f;
+    border-color: #173f5f;
+    color: #ffffff;
+}
+
+.topic-emoji {
+    font-size: 15px;
+}
+
+.topic-check {
+    font-size: 12px;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+/* ── PREVIEW ──────────────────────────────────────────────────────────────── */
+.community-preview {
+    width: 220px;
+    flex-shrink: 0;
+    background: #f6f7f8;
+    border-radius: 12px;
+    overflow: hidden;
+    min-height: 180px;
+}
+
+.preview-empty {
+    width: 100%;
+    height: 100%;
+    background: #edeff1;
+}
+
+.preview-banner {
+    width: 100%;
+    height: 50px;
+    background: #edeff1;
+}
+
+.preview-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px 6px;
+}
+
+.preview-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #ff4500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border: 3px solid white;
+    margin-top: -20px;
+}
+
+.preview-avatar-text {
+    color: white;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.preview-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.preview-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: #1c1c1c;
+}
+
+.preview-stats {
+    font-size: 11px;
+    color: #878a8c;
+}
+
+.preview-description {
+    font-size: 13px;
+    color: #878a8c;
+    padding: 6px 12px 12px;
+}
+
+/* ── FOOTER ───────────────────────────────────────────────────────────────── */
+.community-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    align-items: center;
+}
+
+.back-btn {
+    padding: 10px 20px;
+    border-radius: 20px;
+    border: none;
+    background: #edeff1;
+    color: #1c1c1c;
+    font-weight: 700;
+    font-size: 14px;
+    font-family: inherit;
+    cursor: pointer;
+}
+
+.back-btn:hover { background: #dae0e6; }
+
+.createcommunity-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    font-weight: 700;
+    font-size: 14px;
+    font-family: inherit;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.createcommunity-button:disabled {
+    background-color: #edeff1;
+    color: #878a8c;
+    cursor: default;
+}
+
+.createcommunity-button:enabled {
+    background-color: #0079d3;
+    color: white;
+}
+
+.createcommunity-button:enabled:hover {
+    background-color: #006cbf;
+}

@@ -32,6 +32,11 @@ exports.getcommunity = async (req, res) => {
 
 exports.createcommunity = async (req, res) => {
     try {
+        const existingcommunity = await community.findOne({ name: req.body.name })
+        if (existingcommunity) {
+            return res.status(400).json({ message: 'Community name is already in use' })
+        }
+
         const newcommunity = await community.create({
             ...req.body,
             creator_id: req.user.id
@@ -40,6 +45,21 @@ exports.createcommunity = async (req, res) => {
             message: 'community created',
             community: newcommunity
         })
+    }
+    catch (error) {
+        res.status(400).json({ message: error.message })
+    }
+}
+
+exports.getcommunitybyname = async (req, res) => {
+    try {
+        const singlecommunity = await community.findOne({ name: req.params.name })
+        if (singlecommunity) {
+            res.status(200).json({ community: singlecommunity })
+        }
+        else {
+            res.status(404).json({ message: 'The community is not found' })
+        }
     }
     catch (error) {
         res.status(400).json({ message: error.message })

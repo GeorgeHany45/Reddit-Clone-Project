@@ -1,0 +1,122 @@
+/* ── LEFT SIDEBAR ─────────────────────────────────────────────────────────── */
+.left-sidebar {
+  width: 270px;
+  flex-shrink: 0;
+  background: #fff;
+  position: fixed;
+  top: 60px; left: 0; bottom: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-bottom: 20px;
+}
+
+.left-sidebar::-webkit-scrollbar { width: 4px; }
+.left-sidebar::-webkit-scrollbar-thumb { background: #edeff1; border-radius: 4px; }
+
+.sidebar-top {
+  display: flex;
+  justify-content: flex-end;
+  padding: 8px 8px 4px;
+}
+
+.collapse-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1px solid #edeff1;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #878a8c;
+}
+
+.collapse-btn:hover { background: #f6f7f8; }
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 16px;
+  width: 100%;
+  border: none;
+  background: none;
+  font-size: 14px;
+  font-weight: 500;
+  color: #1c1c1c;
+  cursor: pointer;
+  text-align: left;
+  border-radius: 4px;
+}
+
+.nav-item:hover { background: #f6f7f8; }
+.nav-item.active { background: #f6f7f8; font-weight: 700; }
+.nav-item svg { color: #878a8c; }
+
+.popular-circle {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #1c1c1c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.sidebar-divider {
+  height: 1px;
+  background: #edeff1;
+  margin: 6px 16px;
+}
+
+.sidebar-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 16px;
+  font-size: 10px;
+  font-weight: 700;
+  color: #878a8c;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+}
+
+.sidebar-section-header svg { color: #878a8c; }
+
+.resources-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 7px 16px;
+  width: 100%;
+  border: none;
+  background: none;
+  font-size: 14px;
+  color: #1c1c1c;
+  cursor: pointer;
+  text-align: left;
+}
+
+.resources-item:hover { background: #f6f7f8; }
+.resources-item svg { color: #878a8c; }
+
+.reddit-pro-badge {
+  font-size: 10px;
+  font-weight: 700;
+  color: #ff4500;
+  border: 1px solid #ff4500;
+  padding: 1px 5px;
+  border-radius: 10px;
+  margin-left: 4px;
+}
+
+.sidebar-footer-text {
+  font-size: 12px;
+  color: #878a8c;
+  padding: 8px 16px;
+}
+
