@@ -50,7 +50,7 @@ const Sidebar = () => {
           News
         </button>
 
-        <button className={`nav-item ${isActive('/explore') ? 'active' : ''}`} onClick={() => navigate('/explore')}>
+        <button className={`nav-item ${isActive('/reddit/explore') ? 'active' : ''}`} onClick={() => navigate('/reddit/explore')}>
           <Icon><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></Icon>
           Explore
         </button>

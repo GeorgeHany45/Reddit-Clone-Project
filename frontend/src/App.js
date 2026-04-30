@@ -1,7 +1,7 @@
 import './App.css';
 import AuthPage from './loginpage/Authpage';
-import FeedPage from './Feedpage/Feedpage';
 import Layout from './Layout/layout';
+import ExplorePage from './Feedpage/explore';
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
@@ -12,6 +12,7 @@ function App() {
         <Routes>
           <Route path="/" element={<AuthPage />} />
           <Route path="/reddit" element={<Layout />}>
+            <Route path="explore" element={<ExplorePage />} />
           </Route>
         </Routes>
       </div>
