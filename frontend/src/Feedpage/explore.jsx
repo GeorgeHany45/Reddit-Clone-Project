@@ -9,7 +9,11 @@ const ExplorePage = () => {
     useEffect(() => {
         const fetchcommunities = async () => {
             try {
-                const response = await axios.get('http://localhost:5001/api/community/communities')
+                const token = localStorage.getItem('token')
+                const response = await axios.get(
+                    'http://localhost:5001/api/community/communities',
+                    { headers: { Authorization: `Bearer ${token}` } }
+                )
                 setcommunities(response.data.data)
             } catch (e) {
                 console.log(e.message)
@@ -20,8 +24,11 @@ const ExplorePage = () => {
         fetchcommunities()
     }, [])
 
-    // group communities by topic
-    const groupedbytopic = communities.reduce((acc, community) => {
+    // filter out joined communities
+    const notjoined = communities.filter(c => !c.isJoined)
+
+    // group remaining communities by topic
+    const groupedbytopic = notjoined.reduce((acc, community) => {
         const topic = community.topic || 'General'
         if (!acc[topic]) acc[topic] = []
         acc[topic].push(community)
@@ -73,7 +80,8 @@ const TopicSection = ({ topic, communities }) => {
 }
 
 const CommunityCard = ({ community }) => {
-    const [joined, setjoined] = useState(false)
+    // isJoined now comes from backend flag not hardcoded false
+    const [joined, setjoined] = useState(community.isJoined)
 
     const handlejoin = async () => {
         try {
