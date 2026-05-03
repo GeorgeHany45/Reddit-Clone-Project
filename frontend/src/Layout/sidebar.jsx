@@ -50,7 +50,7 @@ const Sidebar = () => {
           News
         </button>
 
-        <button className={`nav-item ${isActive('/reddit/explore') ? 'active' : ''}`} onClick={() => navigate('/reddit/explore')}>
+        <button className={`nav-item ${isActive('/reddit/explore') ? 'active' : ''}`} onClick={() => navigate('explore')}>
           <Icon><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></Icon>
           Explore
         </button>
@@ -84,7 +84,7 @@ const Sidebar = () => {
           COMMUNITIES
           <Icon size={12}><polyline points="6 9 12 15 18 9"/></Icon>
         </div>
-        <button className="resources-item">
+        <button className="resources-item" onClick={()=>navigate('communities')}>
           <Icon><path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2z"/><path d="M8.56 2.75c4.37 6.03 6.02 9.42 8.03 17.72m2.54-15.38c-3.72 4.35-8.94 5.66-16.88 5.85m19.5 1.9c-3.5-.93-6.63-.82-8.94 0-2.58.92-5.01 2.86-7.44 6.32"/></Icon>
           Manage Communities
         </button>

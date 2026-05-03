@@ -1,6 +1,7 @@
 
 const community = require('../models/communities_model')
 const communitymember = require('../models/communitymembers_model')
+const jwt = require('jsonwebtoken')
 
 exports.getallcommunities = async (req, res) => {
     try {
@@ -8,7 +9,6 @@ exports.getallcommunities = async (req, res) => {
         const token = req.headers.authorization?.split(' ')[1]
 
         if (token) {
-            const jwt = require('jsonwebtoken')
             const decoded = jwt.verify(token, process.env.JWT_SECRET)
             const userid = decoded.id
 

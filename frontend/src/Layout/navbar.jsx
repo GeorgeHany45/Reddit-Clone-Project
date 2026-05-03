@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Communitycreation from '../community/communitycreation'
 import './navbar.css'
-
+import Search from '../search component/search'
 const Alien = ({ size = 20 }) => (
   <svg width={size} height={size} viewBox="0 0 20 20" style={{ flexShrink: 0 }}>
     <circle cx="10" cy="10" r="10" fill="#FF4500" />
@@ -20,6 +20,8 @@ const Icon = ({ children, size = 18 }) => (
 
 const Navbar = () => {
   const [showUserMenu, setShowUserMenu] = useState(false)
+  const [showsearch, setshowsearch] = useState(false)
+  const [query, setquery] = useState('')
   const navigate = useNavigate()
 
   return (
@@ -31,17 +33,28 @@ const Navbar = () => {
           <span className="reddit-logo-text">reddit</span>
         </div>
 
-        <div className="navbar-search">
+     <div className="navbar-search" style={{ position: 'relative' }} >
           <Alien size={22} />
-          <input type="text" placeholder="Find anything" />
+          <input
+              type="text"
+              placeholder="Find anything"
+              value={query}
+              onChange={(e) => {
+                  setquery(e.target.value)
+                  setshowsearch(e.target.value.trim() !== '')
+              }}
+              onFocus={() => { if (query.trim()) setshowsearch(true) }}
+              onBlur={() => setTimeout(() => setshowsearch(false), 200)}
+          />
           <div className="search-divider" />
           <button className="ask-btn">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width="18" height="18" fill="#FF4500">
-              <path d="M18.332 11.042l-4.05-7.056A4.875 4.875 0 009.92 1.5a4.898 4.898 0 00-4.198 2.485l-4.05 7.056a4.938 4.938 0 00.042 5.044 4.894 4.894 0 004.238 2.414h8.099c1.82 0 3.437-.957 4.32-2.559a4.956 4.956 0 00-.04-4.9v.002z"/>
-            </svg>
-            Ask
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width="18" height="18" fill="#FF4500">
+                  <path d="M18.332 11.042l-4.05-7.056A4.875 4.875 0 009.92 1.5a4.898 4.898 0 00-4.198 2.485l-4.05 7.056a4.938 4.938 0 00.042 5.044 4.894 4.894 0 004.238 2.414h8.099c1.82 0 3.437-.957 4.32-2.559a4.956 4.956 0 00-.04-4.9v.002z"/>
+              </svg>
+              Ask
           </button>
-        </div>
+          {showsearch && <Search query={query} />}
+      </div>
 
         <div className="navbar-right">
           <button className="nav-icon-btn">
