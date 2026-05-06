@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from 'react-router-dom'
 import axios from "axios";
 import "./explore.css";
 
@@ -24,10 +25,8 @@ const ExplorePage = () => {
         fetchcommunities()
     }, [])
 
-    // filter out joined communities
     const notjoined = communities.filter(c => !c.isJoined)
 
-    // group remaining communities by topic
     const groupedbytopic = notjoined.reduce((acc, community) => {
         const topic = community.topic || 'General'
         if (!acc[topic]) acc[topic] = []
@@ -80,10 +79,11 @@ const TopicSection = ({ topic, communities }) => {
 }
 
 const CommunityCard = ({ community }) => {
-    // isJoined now comes from backend flag not hardcoded false
+    const navigate = useNavigate()
     const [joined, setjoined] = useState(community.isJoined)
 
-    const handlejoin = async () => {
+    const handlejoin = async (e) => {
+        e.stopPropagation()
         try {
             const token = localStorage.getItem('token')
             if (joined) {
@@ -106,7 +106,7 @@ const CommunityCard = ({ community }) => {
     }
 
     return (
-        <div className="community-card">
+        <div className="community-card" onClick={() => navigate(`/reddit/community/${community.name}`)}>
             <div className="card-top">
                 <div className="card-avatar" style={{ backgroundColor: '#ff4500' }}>
                     <span className="card-avatar-text">r/</span>

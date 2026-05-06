@@ -78,12 +78,31 @@ exports.createcommunity = async (req, res) => {
 exports.getcommunitybyname = async (req, res) => {
     try {
         const singlecommunity = await community.findOne({ name: req.params.name })
-        if (singlecommunity) {
-            res.status(200).json({ community: singlecommunity })
+        if (!singlecommunity) {
+            return res.status(404).json({ message: 'The community is not found' })
         }
-        else {
-            res.status(404).json({ message: 'The community is not found' })
+
+        let isJoined = false
+        const token = req.headers.authorization?.split(' ')[1]
+        if (token) {
+            try {
+                const decoded = jwt.verify(token, process.env.JWT_SECRET)
+                const membership = await communitymember.findOne({
+                    user_id: decoded.id,
+                    community_id: singlecommunity._id
+                })
+                isJoined = Boolean(membership)
+            } catch (err) {
+                // ignore invalid token and return community without joined flag
+            }
         }
+
+        res.status(200).json({
+            community: {
+                ...singlecommunity._doc,
+                isJoined
+            }
+        })
     }
     catch (error) {
         res.status(400).json({ message: error.message })

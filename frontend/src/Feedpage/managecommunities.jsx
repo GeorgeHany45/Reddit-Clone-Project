@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from 'react-router-dom'
 import axios from "axios";
 import "./managecommunities.css";
 
@@ -51,8 +52,10 @@ const ManageCommunities = () => {
 }
 
 const ManageCommunityCard = ({ community, onLeave }) => {
+    const navigate = useNavigate()
 
-    const handleleave = async () => {
+    const handleleave = async (e) => {
+        e.stopPropagation()
         try {
             const token = localStorage.getItem('token')
             await axios.delete(
@@ -66,7 +69,7 @@ const ManageCommunityCard = ({ community, onLeave }) => {
     }
 
     return (
-        <div className="manage-card">
+        <div className="manage-card" onClick={() => navigate(`/reddit/community/${community.name}`)}>
             <div className="manage-card-top">
                 <div className="manage-card-avatar" style={{ backgroundColor: '#ff4500' }}>
                     <span className="manage-card-avatar-text">r/</span>
