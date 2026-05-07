@@ -1,0 +1,247 @@
+.homefeed-page {
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 0;
+}
+
+.homefeed-title {
+    font-size: 26px;
+    font-weight: 700;
+    color: #1c1c1c;
+    margin-bottom: 20px;
+    margin-left: 16px;
+    margin-top: 20px;
+}
+
+.homefeed-loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 300px;
+    font-size: 16px;
+    color: #878a8c;
+}
+
+.homefeed-empty {
+    color: #878a8c;
+    font-size: 16px;
+    text-align: center;
+    margin-top: 60px;
+    background: #ffffff;
+    border: 1px solid #edeff1;
+    border-radius: 12px;
+    padding: 32px;
+    margin-left: 16px;
+    margin-right: 16px;
+}
+
+/* ── FEED CONTAINER ──────────────────────────────────────────────────────── */
+.feed-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 0 16px;
+}
+
+/* ── POST CARD ───────────────────────────────────────────────────────────── */
+.post-card {
+    background: #ffffff;
+    border: 1px solid #edeff1;
+    border-radius: 8px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    transition: border-color 0.15s;
+}
+
+.post-card:hover {
+    border-color: #ccc;
+}
+
+/* ── POST HEADER ─────────────────────────────────────────────────────────── */
+.post-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+.post-header-left {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+}
+
+.post-user-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.post-avatar-text {
+    color: white;
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.post-author {
+    font-weight: 600;
+    color: #0079d3;
+    cursor: pointer;
+}
+
+.post-dot {
+    color: #818384;
+    margin: 0 2px;
+}
+
+.post-time,
+.post-community {
+    color: #818384;
+}
+
+.post-community {
+    font-weight: 600;
+    color: #1c1c1c;
+}
+
+.post-options {
+    background: none;
+    border: none;
+    color: #818384;
+    cursor: pointer;
+    font-size: 18px;
+    padding: 0 4px;
+}
+
+/* ── POST TITLE ──────────────────────────────────────────────────────────── */
+.post-title {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: #1c1c1c;
+    line-height: 1.4;
+    cursor: pointer;
+}
+
+.post-title:hover {
+    color: #0079d3;
+}
+
+/* ── POST CONTENT ────────────────────────────────────────────────────────── */
+.post-content {
+    margin: 0;
+    font-size: 14px;
+    color: #1c1c1c;
+    line-height: 1.5;
+}
+
+/* ── POST IMAGE ──────────────────────────────────────────────────────────── */
+.post-image-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #f6f7f8;
+    border-radius: 4px;
+    overflow: hidden;
+    max-height: 400px;
+}
+
+.post-image {
+    width: 100%;
+    height: auto;
+    max-height: 400px;
+    object-fit: cover;
+}
+
+/* ── POST SUMMARY ────────────────────────────────────────────────────────── */
+.post-summary {
+    background: #f6f7f8;
+    border-left: 4px solid #0079d3;
+    padding: 12px;
+    border-radius: 4px;
+}
+
+.summary-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: #0079d3;
+    margin: 0 0 6px 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.summary-text {
+    margin: 0;
+    font-size: 13px;
+    color: #1c1c1c;
+    line-height: 1.5;
+}
+
+/* ── POST ACTIONS ────────────────────────────────────────────────────────── */
+.post-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid #edeff1;
+}
+
+.vote-pill,
+.action-pill {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    background: none;
+    border: none;
+    border-radius: 20px;
+    font-size: 12px;
+    color: #818384;
+    cursor: pointer;
+    transition: background-color 0.15s;
+}
+
+.action-pill:hover,
+.vote-pill:hover {
+    background-color: #f6f7f8;
+}
+
+.vote-btn {
+    background: none;
+    border: none;
+    color: #818384;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    width: 20px;
+    height: 20px;
+    transition: color 0.15s;
+}
+
+.vote-btn:hover {
+    color: #0079d3;
+}
+
+.vote-btn.upvoted {
+    color: #818384;
+}
+
+.vote-btn.downvoted {
+    color: #a335ee;
+}
+
+.vote-count {
+    color: #818384;
+    font-weight: 600;
+    min-width: 24px;
+    text-align: center;
+}

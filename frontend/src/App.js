@@ -1,6 +1,7 @@
 import './App.css';
 import AuthPage from './loginpage/Authpage';
 import Layout from './Layout/layout';
+import HomePage from './Feedpage/homefeed';
 import ExplorePage from './Feedpage/explore';
 import CreatePost from './Posts/createpost';
 
@@ -16,7 +17,7 @@ function App() {
         <Routes>
           <Route path="/" element={<AuthPage />} />
           <Route path="/reddit" element={<Layout />}>
-            <Route index element={<ExplorePage />} />
+            <Route index element={<HomePage />} />
             <Route path="explore" element={<ExplorePage />} />
             <Route path="communities" element={<ManageCommunities />} />
             <Route path="community/:name" element={<CommunityPage />} />
