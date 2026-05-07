@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Communitycreation from '../community/communitycreation'
 import './navbar.css'
@@ -22,7 +22,37 @@ const Navbar = () => {
   const [showUserMenu, setShowUserMenu] = useState(false)
   const [showsearch, setshowsearch] = useState(false)
   const [query, setquery] = useState('')
+  const [username, setUsername] = useState('username')
   const navigate = useNavigate()
+
+  useEffect(() => {
+    console.log("Navbar mounted, checking localStorage...");
+    const user = localStorage.getItem('user');
+    const token = localStorage.getItem('token');
+    
+    console.log("Token:", token ? "EXISTS" : "MISSING");
+    console.log("User localStorage value:", user);
+    
+    if (user && user !== 'undefined') {
+      try {
+        const userData = JSON.parse(user);
+        console.log("Parsed user data:", userData);
+        setUsername(userData.username || 'username');
+      } catch (err) {
+        console.error('Failed to parse user data:', err);
+        setUsername('username');
+      }
+    } else {
+      console.log("No valid user data in localStorage");
+      setUsername('username');
+    }
+  }, [])
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    navigate('/');
+  }
 
   return (
     <>
@@ -84,7 +114,7 @@ const Navbar = () => {
                   <div className="dropdown-avatar"><Alien size={36} /></div>
                   <div className="dropdown-profile-info">
                     <span className="dropdown-name">View Profile</span>
-                    <span className="dropdown-username">u/username</span>
+                    <span className="dropdown-username">u/{username}</span>
                   </div>
                 </div>
 
@@ -126,7 +156,7 @@ const Navbar = () => {
                   <Icon size={18}><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></Icon>
                   Display Mode
                 </button>
-                <button className="dropdown-item">
+                <button className="dropdown-item" onClick={handleLogout}>
                   <Icon size={18}><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></Icon>
                   Log Out
                 </button>

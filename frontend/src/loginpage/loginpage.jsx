@@ -19,14 +19,29 @@ const LoginPage = ({ switchToSignup }) => {
     e.preventDefault();
     try{
       const response = await axios.post('http://localhost:5001/api/auth/login',formData);
+      
+      console.log("Login response data:", response.data);
+      console.log("Response token:", response.data.token);
+      console.log("Response user:", response.data.user);
+      
+      // Store token
       localStorage.setItem("token", response.data.token);
+      
+      // Store user data if it exists
+      if (response.data.user) {
+        localStorage.setItem("user", JSON.stringify(response.data.user));
+        console.log("Stored user in localStorage");
+      } else {
+        console.warn("WARNING: No user data in response!");
+      }
+      
       alert(' login successfully')
       navigate('/reddit')
      
     }
     catch(error){
-      console.log(error.message)
-      alert('incorrect login details')
+      console.error("Login error:", error.response?.data || error.message);
+      alert('Login failed: ' + (error.response?.data?.message || error.message))
     }
   };
  

@@ -28,19 +28,38 @@ const Signup = ({ switchToLogin }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:5001/api/auth/register", {
+      const response = await axios.post("http://localhost:5001/api/auth/register", {
         username,
         email,
         password,
       });
+      
+      console.log("FULL Signup response:", response);
+      console.log("Response status:", response.status);
+      console.log("Response data:", response.data);
+      console.log("Response token:", response.data.token);
+      console.log("Response user:", response.data.user);
+      console.log("ALL keys in response.data:", Object.keys(response.data));
+      
+      // Store token
+      localStorage.setItem("token", response.data.token);
+      
+      // Store user data if it exists
+      if (response.data.user) {
+        localStorage.setItem("user", JSON.stringify(response.data.user));
+        console.log("Stored user in localStorage");
+      } else {
+        console.warn("WARNING: No user data in response!");
+      }
+      
       alert('signup successfully')
       navigate('/reddit')
 
       
       
     } catch (error) {
-      console.log(error.message);
-      alert("Signup failed");
+      console.error("Signup error:", error.response?.data || error.message);
+      alert("Signup failed: " + (error.response?.data?.message || error.message));
     }
   };
 
