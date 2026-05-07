@@ -149,3 +149,86 @@ exports.getCurrentUser = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+
+// Forgot Password
+exports.forgotPassword = async (req, res) => {
+  try {
+    const { email } = req.body;
+
+    console.log("Forgot password request for email:", email);
+
+    // Validation
+    if (!email) {
+      return res.status(400).json({ message: "Email is required" });
+    }
+
+    // Find user by email
+    const user = await users.findOne({ email });
+
+    if (!user) {
+      // Don't reveal if email exists for security
+      return res.status(200).json({ 
+        message: "If an account exists with this email, password reset instructions will be sent." 
+      });
+    }
+
+    // In a real app, generate a reset token and send email
+    // For now, we'll just verify the email exists
+    console.log("User found for password reset:", user.username);
+
+    res.status(200).json({ 
+      message: "If an account exists with this email, password reset instructions will be sent." 
+    });
+
+  } catch (err) {
+    console.error("Forgot password error:", err);
+    res.status(500).json({ error: err.message });
+  }
+};
+
+// Reset Password
+exports.resetPassword = async (req, res) => {
+  try {
+    const { email, newPassword, confirmPassword } = req.body;
+
+    console.log("Reset password request for email:", email);
+
+    // Validation
+    if (!email || !newPassword || !confirmPassword) {
+      return res.status(400).json({ message: "Email, new password, and confirm password are required" });
+    }
+
+    if (newPassword !== confirmPassword) {
+      return res.status(400).json({ message: "Passwords do not match" });
+    }
+
+    if (newPassword.length < 6) {
+      return res.status(400).json({ message: "Password must be at least 6 characters long" });
+    }
+
+    // Find user by email
+    const user = await users.findOne({ email });
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Hash new password
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    console.log("New password hashed for:", user.username);
+
+    // Update user password
+    user.password = hashedPassword;
+    await user.save();
+
+    console.log("Password reset successfully for:", user.username);
+
+    res.status(200).json({ 
+      message: "Password reset successfully. Please log in with your new password." 
+    });
+
+  } catch (err) {
+    console.error("Reset password error:", err);
+    res.status(500).json({ error: err.message });
+  }
+};

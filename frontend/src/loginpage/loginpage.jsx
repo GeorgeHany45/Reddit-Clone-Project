@@ -2,13 +2,14 @@ import React, { useState } from 'react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import axios from 'axios'
 import { useNavigate } from "react-router-dom";
-
+import ForgotPasswordPage from '../pages/forgotpassword.jsx';
 
 import './AuthPage.css';
 
 const LoginPage = ({ switchToSignup }) => {
   const [formData, setFormData] = useState({ identifier:'', password:'' });
   const [showPassword, setShowPassword] = useState(false);
+  const [showForgotPassword, setShowForgotPassword] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -49,7 +50,7 @@ const LoginPage = ({ switchToSignup }) => {
   // Check if both fields are filled
   const isFormValid = formData.identifier.trim() !== '' && formData.password.trim() !== '';
 
-  return (
+  return (<>
     <div className='box-modal'>
     <div className="login-modal">
         <h2 style={{marginBottom :'20px'}}>Log In</h2>
@@ -84,7 +85,16 @@ const LoginPage = ({ switchToSignup }) => {
           </div>       
 
           <div className="actions">
-            <a href="#">Forgot password?</a>
+            <button
+              type="button"
+              onClick={(e) => {
+                e.preventDefault();
+                setShowForgotPassword(true);
+              }}
+              style={{ background: 'none', border: 'none', color: '#0079d3', cursor: 'pointer', textDecoration: 'underline' }}
+            >
+              Forgot password?
+            </button>
           </div>
 
           <p className="signup-link">
@@ -98,9 +108,11 @@ const LoginPage = ({ switchToSignup }) => {
         </form>
       </div>
       </div>
-   
-  
-    
+      
+      {showForgotPassword && (
+        <ForgotPasswordPage onBack={() => setShowForgotPassword(false)} />
+      )}
+    </>
   );
 };
 

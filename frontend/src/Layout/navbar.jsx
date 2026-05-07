@@ -121,13 +121,20 @@ const Navbar = () => {
 
             {showUserMenu && (
               <div className="user-dropdown">
-                <div className="dropdown-profile">
+                <button
+                  className="dropdown-profile"
+                  onClick={() => {
+                    navigate('/reddit/profile');
+                    setShowUserMenu(false);
+                  }}
+                  style={{ background: 'none', border: 'none', width: '100%', cursor: 'pointer', padding: 0 }}
+                >
                   <div className="dropdown-avatar"><Alien size={36} /></div>
                   <div className="dropdown-profile-info">
                     <span className="dropdown-name">View Profile</span>
                     <span className="dropdown-username">u/{username}</span>
                   </div>
-                </div>
+                </button>
 
                 <div className="dropdown-divider" />
 

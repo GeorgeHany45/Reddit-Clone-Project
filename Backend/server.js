@@ -22,7 +22,14 @@ app.use(cors())
 app.use("/api/auth", authroutes);
 app.use("/api/community",communityroutes);
 app.use("/api/community",communitymembersroutes);
-app.use("/api/user",userroutes);
+app.use("/api/users",userroutes);
+console.log('USERRoutes mounted at /api/users');
+console.log('Available routes:');
+userroutes.stack.forEach((layer, index) => {
+  if (layer.route) {
+    console.log('  ', Object.keys(layer.route.methods).join(',').toUpperCase(), layer.route.path);
+  }
+});
 app.use("/api/posts",postsroute);
 app.use('/api/votes', votesroute);
 app.use('/api/comments', commentsroute);
