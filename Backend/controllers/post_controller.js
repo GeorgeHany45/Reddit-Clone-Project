@@ -37,18 +37,30 @@ exports.createpost = async(req , res)=>{
 
 exports.getfeedposts = async (req, res) => {
     try {
+        console.log("=== GET FEED POSTS ===");
+        console.log("User ID:", req.user.id);
+        
         // get communities the user joined
         const joinedcommunities = await communitymember.find({ user_id: req.user.id })
+        console.log("Joined communities:", joinedcommunities);
+        console.log("Number of joined communities:", joinedcommunities.length);
+        
         const communityids = joinedcommunities.map(m => m.community_id)
+        console.log("Community IDs:", communityids);
 
         // get posts only from those communities, sorted by most recent first
         const feedposts = await posts.find({ community_id: { $in: communityids } })
           .sort({ created_at: -1 })
           .populate('user_id', 'username')
           .populate('community_id', 'name')
+          
+        console.log("Feed posts found:", feedposts.length);
+        console.log("Feed posts:", feedposts);
+        
         res.status(200).json({ data: feedposts })
     }
     catch (error) {
+        console.error("Error in getfeedposts:", error);
         res.status(400).json({ message: error.message })
     }
 }

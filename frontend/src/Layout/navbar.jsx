@@ -49,8 +49,19 @@ const Navbar = () => {
   }, [])
 
   const handleLogout = () => {
+    console.log("Logout button clicked!");
+    console.log("Before logout - Token:", localStorage.getItem('token') ? 'EXISTS' : 'MISSING');
+    console.log("Before logout - User:", localStorage.getItem('user'));
+    
     localStorage.removeItem('token');
     localStorage.removeItem('user');
+    
+    console.log("After logout - Token:", localStorage.getItem('token') ? 'EXISTS' : 'MISSING');
+    console.log("After logout - User:", localStorage.getItem('user'));
+    
+    setShowUserMenu(false);
+    console.log("Navigating to /...");
+    
     navigate('/');
   }
 
@@ -156,9 +167,15 @@ const Navbar = () => {
                   <Icon size={18}><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></Icon>
                   Display Mode
                 </button>
-                <button className="dropdown-item" onClick={handleLogout}>
+                <button
+                  className="dropdown-item"
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    handleLogout()
+                  }}
+                >
                   <Icon size={18}><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></Icon>
-                  Log Out
+                  Log Out1
                 </button>
 
                 <div className="dropdown-divider" />

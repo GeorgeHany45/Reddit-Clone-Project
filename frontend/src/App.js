@@ -16,6 +16,7 @@ function App() {
         <Routes>
           <Route path="/" element={<AuthPage />} />
           <Route path="/reddit" element={<Layout />}>
+            <Route index element={<ExplorePage />} />
             <Route path="explore" element={<ExplorePage />} />
             <Route path="communities" element={<ManageCommunities />} />
             <Route path="community/:name" element={<CommunityPage />} />
