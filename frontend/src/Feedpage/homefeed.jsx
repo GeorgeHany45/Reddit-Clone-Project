@@ -140,7 +140,7 @@ const PostCard = ({ post }) => {
 
       const token = localStorage.getItem('token')
       console.log("Summarize request for post:", post._id)
-
+      console.log("TOKEN:", token)
       const res = await axios.post(
         `http://localhost:5001/api/postsummary/summary/${post._id}`,
         {},

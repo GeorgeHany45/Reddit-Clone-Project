@@ -10,6 +10,29 @@ exports.getallusers = async (req, res) => {
     }
 }
 
+exports.getUserByUsername = async (req, res) => {
+    try {
+        const { username } = req.params;
+        const user = await users.findOne({ username: { $regex: `^${username}$`, $options: 'i' } });
+        
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        
+        res.status(200).json({
+            user: {
+                id: user._id,
+                username: user.username,
+                email: user.email,
+                bio: user.bio,
+                createdAt: user.createdAt
+            }
+        });
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+}
+
 exports.updateProfile = async (req, res) => {
     try {
         console.log('=== PUT /api/users/profile HIT ===');

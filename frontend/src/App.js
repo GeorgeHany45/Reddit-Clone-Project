@@ -5,6 +5,7 @@ import HomePage from './Feedpage/homefeed';
 import ExplorePage from './Feedpage/explore';
 import CreatePost from './Posts/createpost';
 import ProfilePage from './pages/profile';
+import UserProfilePage from './pages/UserProfile';
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ManageCommunities from './Feedpage/managecommunities';
@@ -21,6 +22,7 @@ function App() {
             <Route index element={<HomePage />} />
             <Route path="explore" element={<ExplorePage />} />
             <Route path="profile" element={<ProfilePage />} />
+            <Route path="user/:username" element={<UserProfilePage />} />
             <Route path="communities" element={<ManageCommunities />} />
             <Route path="community/:name" element={<CommunityPage />} />
             <Route path="community/:name/createpost" element={<CreatePost />} />

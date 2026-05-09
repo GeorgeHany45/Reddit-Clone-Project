@@ -2,11 +2,32 @@ const postsummary = require('../models/postsummaries_model')
 const posts = require('../models/post_model')
 const { GoogleGenerativeAI } = require('@google/generative-ai')
 
-const genai = new GoogleGenerativeAI(process.env.GEMINI_API_KEY)
-const model = genai.getGenerativeModel({ model: 'gemini-pro' })
+let model = null
+let geminiError = null
+
+if (process.env.GEMINI_API_KEY) {
+  try {
+    const genai = new GoogleGenerativeAI(process.env.GEMINI_API_KEY)
+    model = genai.getGenerativeModel({ model: "gemini-2.5-flash" })
+    console.log("✓ Gemini AI initialized successfully")
+  } catch (e) {
+    geminiError = e.message
+    console.warn("⚠ Gemini AI initialization failed:", e.message)
+  }
+} else {
+  console.warn("⚠ GEMINI_API_KEY not found in environment variables")
+}
 
 exports.summarizepost = async (req, res) => {
     try {
+        // Check if Gemini is available
+        if (!model) {
+            return res.status(503).json({ 
+                message: "Summary service unavailable",
+                reason: geminiError || "Gemini AI not configured"
+            })
+        }
+
         const post = await posts.findById(req.params.id)
         if (!post) {
             return res.status(404).json({ message: 'Post not found' })
@@ -32,8 +53,12 @@ exports.summarizepost = async (req, res) => {
 
         res.status(201).json({ data: newsummary })
     }
-    catch (error) {
-        res.status(400).json({ message: error.message })
+    catch (e) {
+        console.error("Summary generation error:", e.message)
+        res.status(500).json({
+            message: "Failed to generate summary",
+            error: e.message
+        })
     }
 }
 

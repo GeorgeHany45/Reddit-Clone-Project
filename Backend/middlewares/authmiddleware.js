@@ -11,7 +11,7 @@ const authMiddleware = (req, res, next) => {
 
     // 2️⃣ Extract token (Bearer <token>)
     const token = authHeader.split(" ")[1];
-
+    console.log("JWT_SECRET:", process.env.JWT_SECRET);
     // 3️⃣ Verify token
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
@@ -22,7 +22,12 @@ const authMiddleware = (req, res, next) => {
     next();
 
   } catch (err) {
-    res.status(401).json({ message: "Invalid token" });
+    console.log("JWT ERROR:", err.message);
+
+    res.status(401).json({
+      message: "Invalid token",
+      error: err.message
+    });
   }
 };
 
