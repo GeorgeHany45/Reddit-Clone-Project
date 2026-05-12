@@ -12,10 +12,10 @@ if (process.env.GEMINI_API_KEY) {
     console.log("✓ Gemini AI initialized successfully")
   } catch (e) {
     geminiError = e.message
-    console.warn("⚠ Gemini AI initialization failed:", e.message)
+    console.warn(" Gemini AI initialization failed:", e.message)
   }
 } else {
-  console.warn("⚠ GEMINI_API_KEY not found in environment variables")
+  console.warn(" GEMINI_API_KEY not found in environment variables")
 }
 
 exports.summarizepost = async (req, res) => {

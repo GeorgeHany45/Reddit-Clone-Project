@@ -71,12 +71,12 @@ exports.login = async (req, res) => {
 
     console.log("Login attempt - Identifier:", identifier);
 
-    // 1️⃣ Validation
+    //  Validation
     if (!identifier || !password) {
       return res.status(400).json({ message: "email or username and password are required" });
     }
 
-    // 2️⃣ Find user by email OR username
+    //  Find user by email OR username
     const user = await users.findOne({
       $or: [
         { email: identifier },
@@ -172,8 +172,8 @@ exports.forgotPassword = async (req, res) => {
       });
     }
 
-    // In a real app, generate a reset token and send email
-    // For now, we'll just verify the email exists
+
+   
     console.log("User found for password reset:", user.username);
 
     res.status(200).json({ 

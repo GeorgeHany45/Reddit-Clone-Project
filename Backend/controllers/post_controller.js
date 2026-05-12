@@ -48,7 +48,7 @@ exports.getfeedposts = async (req, res) => {
         const communityids = joinedcommunities.map(m => m.community_id)
         console.log("Community IDs:", communityids);
 
-        // get posts only from those communities, sorted by most recent first
+        //sorted by most recent first
         const feedposts = await posts.find({ community_id: { $in: communityids } })
           .sort({ created_at: -1 })
           .populate('user_id', 'username')
